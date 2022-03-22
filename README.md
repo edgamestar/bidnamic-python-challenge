@@ -169,7 +169,7 @@ $ nano /etc/supervisor/conf.d/bidnamic_group.conf
 [group:bidnamic_group]
 programs=bidnamic,worker
 
-[program:customizer]
+[program:bidnamic]
 command=/var/www/bidnamic-python-challenge/venv/bin/gunicorn --access-logfile - --workers 3 --bind unix:/var/www/bidnamic-python-challenge/bidnamic.sock bidnamic.wsgi:application
 
 directory=/var/www/bidnamic-python-challenge
