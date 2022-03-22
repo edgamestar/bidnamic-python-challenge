@@ -11,7 +11,7 @@ This is my implementation of the coding test given by Bidnamic
 │   │   │   └── edgam_settings.py       # edward's development settings file  
 │   │   ├── ...  
 │   │   ├── base_settings.py            # base settings file  
-│   │   ├── celery.py                   # configuration for celery 
+│   │   ├── celery.py                   # configuration for celery  
 │   │   ├── urls.py                     # http urls file  
 │   │   └── wsgi.py                     # used to serve the application  
 │   ├── portal                          # the app folder  
@@ -36,10 +36,10 @@ This is my implementation of the coding test given by Bidnamic
 │   ├── README.md                       # the file you are reading  
 │   └── requirements.txt                # or pip to install python dependencies into a venv
 
-# Installation
+# Installation (Ubuntu)
 This app is uses `Python == 3.7.7`
 
-Create the database and user, depending on the selected settings file backend  
+Create the database and user, depending on the database settings in the selected settings file  
 
 Navigate to the base directory of the project
 
@@ -51,6 +51,10 @@ $ mkdir logs
 Create a python3 virtual environment (assuming you've navigated to the base directory) called `venv`
 ```sh
 $ virtualenv -p python3 venv
+```  
+or
+```sh
+$ python3 -m venv venv
 ```  
 Next, activate the `venv` 
 ```sh
@@ -66,7 +70,7 @@ Now run migration
 ```  
 If being installed in production  
 ```sh
-(venv) $ python manage.py collectstatic --noinput
+(venv) $ python manage.py collectstatic --no-input
 ```  
 Create super user  
 ```sh
@@ -154,7 +158,7 @@ Next restart `redis`
 ```sh
 $ systemctl restart redis
 ```
-Next, install and configure `supervisor` to serve `Daphne`
+Next, install and configure `supervisor` to serve `gunicorn`
 ```sh
 $ apt-get install supervisor
 ```
