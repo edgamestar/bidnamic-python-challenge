@@ -1,0 +1,61 @@
+{% extends 'layout/base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <div class="ui container" style="height: 100%">
+        <a href="https://bidnamic.com" target="_blank"><img class="ui centered medium image" src="{% static "image/logo.png" %}"></a>
+        <div class="ui divider"></div>
+        <div class="ui basic segment details-form" style="height: 100%">
+            <div class="ui two column centered middle aligned stackable grid" style="height: 100%">
+                <div class="column ui segment">
+                    <h2 class="ui center aligned header">Sign In</h2>
+
+                    <!--region Signin Form-->
+                    <form class="ajax-form ui form" method="post" action="{% url 'auth' target='signin' %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="next" value="{{ request.GET.next }}">
+                        <div class="field">
+                            <div class="ui icon input">
+                                <input type="text" name="username" placeholder="Email"
+                                       required data-msg="Please enter your email" data-rule-email="true" data-msg-email="Enter a valid email">
+                                <i class="envelope outline icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <div class="ui icon input">
+                                <input type="password" name="password" placeholder="Password"
+                                       required data-msg="Please enter your password"
+                                       data-rule-minlength="8" data-msg-minlength="At least 8 characters required">
+                                <i class="lock icon"></i>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            {#                            <a href="#" id="retrieve" class="ui blue tiny header">Forgot password?</a>#}
+                            <div class="ui animated button blue big right floated submit" tabindex="0">
+                                <div class="visible content">Sign in</div>
+                                <div class="hidden content">
+                                    <i class="sign-in icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <!--endregion-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block script %}
+    <script>
+    </script>
+{% endblock %}

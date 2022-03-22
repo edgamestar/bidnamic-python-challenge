@@ -1,0 +1,23 @@
+{% load humanize %}
+<div class="ui header">ROAS</div>
+<table id="results_table" class="ui selectable striped celled table">
+    <thead>
+    <tr>
+        <th>SEARCH TERM:</th>
+        <th>TOTAL COST:</th>
+        <th>TOTAL CONVERSION VALUE:</th>
+        <th>ROAS:</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    {% for result in results %}
+        <tr>
+            <td>{{ result.search_term }}</td>
+            <td>{{ result.total_cost|intcomma }}</td>
+            <td>{{ result.total_conversion_value|intcomma }}</td>
+            <td>{{ result.roas|floatformat:2|intcomma }}</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

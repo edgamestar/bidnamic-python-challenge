@@ -1,0 +1,63 @@
+{% load custom_filters %}
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="Edward Segun">
+    <meta name="description" content="Edward Segun's attempt on the bidnamic challenge">
+
+    <link rel="shortcut icon" href="{% static "image/favicon.png" %}" type="image/png">
+
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/v/se/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-html5-2.2.2/b-print-2.2.2/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css">
+
+    <link rel="stylesheet" type="text/css" href="{% static "vendor/noty/noty.css" %}">
+    <link rel="stylesheet" type="text/css" href="{% static "vendor/noty/semanticui.css" %}">
+
+    <title>Bidnamic Python Challenge - Edward Segun's Attempt</title>
+
+    {% block head %}{% endblock %}
+
+</head>
+<body style="padding: 10px">
+{% csrf_token %}
+
+{% block body %}{% endblock %}
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/v/se/jszip-2.5.0/dt-1.11.5/b-2.2.2/b-html5-2.2.2/b-print-2.2.2/datatables.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.10.20/sorting/datetime-moment.js"></script>
+
+{#<script src="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"></script>#}
+
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/additional-methods.min.js"></script>
+
+<script type="text/javascript" src="{% static "vendor/noty/noty.min.js" %}"></script>
+
+<script src="{% static "js/custom.js" %}"></script>
+
+<script>
+    {% if messages %}
+        {% for message in messages %}
+            {% with message.tags|split:" " as tags %}
+                notify('{{ tags.0 }}', '{{ message|escapejs }}');
+            {% endwith %}
+        {% endfor %}
+    {% endif %}
+</script>
+
+{% block script %}{% endblock %}
+
+</body>
+</html>

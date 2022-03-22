@@ -1,0 +1,168 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <div class="ui container" style="height: 100%">
+        <a class="ui blue right corner label" href="{% url 'auth' target='signout' %}"><i class="sign-out icon"></i></a>
+        <a href="https://bidnamic.com" target="_blank"><img class="ui centered medium image" src="{% static "image/logo.png" %}"></a>
+        <div class="ui divider"></div>
+        <h2 class="ui massive header center aligned">Good {{ time_of_day }}, {{ user.get_full_name }}</h2>
+        <h3 class="ui header center aligned">What would you like to do?</h3>
+
+        <div class="ui basic segment">
+            <div class="ui three column centered middle aligned stackable grid">
+                <div class="ui column">
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="right floated meta">{{ campaigns_count|intcomma }}</div>
+                            <div class="header">
+                                Campaigns
+                            </div>
+                        </div>
+                        <div class="content">
+                            <form class="ajax-form" method="post" action="{% url 'index' target='campaigns' action='upload' %}">
+                                {% csrf_token %}
+                                <label>Upload CSV</label>
+                                <div class="ui fluid action input">
+                                    <input type="file" name="csv" required data-msg-required="Please select a csv file"
+                                           data-rule-extension="csv" data-msg-extension="Only .csv file type is allowed"
+                                           data-filesize="10">
+                                    <button class="ui teal right icon button">
+                                        <i class="cloud upload icon"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="extra content">
+                            <form class="ajax-form" method="post" action="{% url 'index' target='campaigns' action='import' %}">
+                                {% csrf_token %}
+                                <div class="ui fluid green button submit">
+                                    <i class="sync alternate icon"></i>
+                                    Run Background Import
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="ui column">
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="right floated meta">{{ ad_groups_count|intcomma }}</div>
+                            <div class="header">
+                                Ad Groups
+                            </div>
+                        </div>
+                        <div class="content">
+                            <form class="ajax-form" method="post" action="{% url 'index' target='ad-groups' action='upload' %}">
+                                {% csrf_token %}
+                                <label>Upload CSV</label>
+                                <div class="ui fluid action input">
+                                    <input type="file" name="csv" required data-msg-required="Please select a csv file"
+                                           data-rule-extension="csv" data-msg-extension="Only .csv file type is allowed"
+                                           data-filesize="10">
+                                    <button class="ui teal right icon button">
+                                        <i class="cloud upload icon"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="extra content">
+                            <form class="ajax-form" method="post" action="{% url 'index' target='ad-groups' action='import' %}">
+                                {% csrf_token %}
+                                <div class="ui fluid green button submit">
+                                    <i class="sync alternate icon"></i>
+                                    Run Background Import
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui column">
+                    <div class="ui card">
+                        <div class="content">
+                            <div class="right floated meta">{{ search_terms_count|intcomma }}</div>
+                            <div class="header">
+                                Search Terms
+                            </div>
+                        </div>
+                        <div class="content">
+                            <form class="ajax-form" method="post" action="{% url 'index' target='search-terms' action='upload' %}">
+                                {% csrf_token %}
+                                <label>Upload CSV</label>
+                                <div class="ui fluid action input">
+                                    <input type="file" name="csv" required data-msg-required="Please select a csv file"
+                                           data-rule-extension="csv" data-msg-extension="Only .csv file type is allowed"
+                                           data-filesize="10">
+                                    <button class="ui teal right icon button">
+                                        <i class="cloud upload icon"></i>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="extra content">
+                            <form class="ajax-form" method="post" action="{% url 'index' target='search-terms' action='import' %}">
+                                {% csrf_token %}
+                                <div class="ui fluid green button submit">
+                                    <i class="sync alternate icon"></i>
+                                    Run Background Import
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="ui fluid card">
+                <div class="content">
+                    <div class="header">
+                        Generate Return On Ad Spend
+                    </div>
+                </div>
+                <div class="content">
+                    <form class="ajax-form ui form" method="post" action="{% url 'index' target='roas' action='fetch' %}">
+                        <div class="three fields">
+                            <div class="field">
+                                <label>Query</label>
+                                <input type="text" name="query" placeholder="structure_value / alias"
+                                       required data-msg-required="Please enter a query">
+                            </div>
+                            <div class="field">
+                                <label>Which</label>
+                                <select class="ui search dropdown" name="which" required data-msg-required="Please select one.">
+                                    <option value="campaigns">Campaigns</option>
+                                    <option value="ad-groups">Ad Groups</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label>Count</label>
+                                <input type="text" name="limit" placeholder="How many records should be returned" value="10"
+                                       required data-msg-required="Please enter a number" data-rule-number="true" data-rule-min="1"
+                                       data-msg-min="Not less than 1">
+                            </div>
+                        </div>
+
+                        <div class="ui right floated green button submit">
+                            <i class="play icon"></i>
+                            Fetch Results
+                        </div>
+                    </form>
+                </div>
+                <div class="content">
+                    <div class="ui basic segment results-holder">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+{% endblock %}
+
+{% block script %}
+{% endblock %}
